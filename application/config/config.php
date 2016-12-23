@@ -315,7 +315,11 @@ $config['cache_query_string'] = FALSE;
 | https://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = '6CB995C55FC71EE13844641223D1329D';
+//salt=C4F86CC8C0AA5226
+//key=6CB995C55FC71EE13844641223D1329D
+//iv =98F029C53259A59CBE7E942018B75881
+
 
 /*
 |--------------------------------------------------------------------------
@@ -374,7 +378,7 @@ $config['sess_expiration'] = 7200;
 $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
-$config['sess_regenerate_destroy'] = FALSE;
+$config['sess_regenerate_destroy'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------

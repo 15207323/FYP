@@ -30,7 +30,7 @@
         </tr>
     <?php }?>
 </table>
-<a href="<?php echo site_url('Welcome'); ?>"><button>Back</button></a>
+<a href="<?php echo site_url('AdminHome'); ?>"><button>Back</button></a>
 
 </body>
 </html>

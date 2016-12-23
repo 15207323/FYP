@@ -31,11 +31,11 @@ class MemberData extends CI_Controller
         $this->load->view('member_info',$this->data);
     }
 
-    public function edit($id = '') {
-        $this->load->model('EditMember_model');
-        $where = array('memberID' => $id);
-        $this->EditeMember_model->edit_member('member',$where);
-    }
+//    public function edit($id = '') {
+//        $this->load->model('EditMember_model');
+//        $where = array('memberID' => $id);
+//        $this->EditeMember_model->edit_member('member',$where);
+//    }
 
 
 }?>

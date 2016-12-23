@@ -31,7 +31,7 @@
     <?php echo form_submit(array('id' => 'submit', 'value' => 'Submit')); ?>
     <?php echo form_close(); ?>
 
-<a href="<?php echo site_url('Welcome'); ?>"><button>Back</button></a>
+<a href="<?php echo site_url('AdminHome'); ?>"><button>Back</button></a>
 
 </body>
 </html>
