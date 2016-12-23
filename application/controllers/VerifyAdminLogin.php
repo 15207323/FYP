@@ -6,14 +6,14 @@
  * Date: 12/23/2016
  * Time: 2:50 PM
  */
-class VerifyLogin extends CI_Controller {
+class VerifyAdminLogin extends CI_Controller {
 
     function __construct()
     {
         parent::__construct();
         $this->load->helper('url');
         $this->load->library('session');
-        $this->load->model('Login_model','',TRUE);
+        $this->load->model('AdminLogin_model','',TRUE);
     }
 
     function index()
@@ -24,13 +24,13 @@ class VerifyLogin extends CI_Controller {
         $config = array(
 
             array(
-                'field' => 'memberEmail',
+                'field' => 'adminEmail',
                 'label' => 'E-mail',
                 'rules' => 'trim|required|valid_email',
             ),
 
             array(
-                'field' => 'memberPwd',
+                'field' => 'adminPwd',
                 'label' => 'Password',
                 'rules' => 'trim|required|min_length[3]|max_length[20]|callback_check_database',
             ),
@@ -42,41 +42,40 @@ class VerifyLogin extends CI_Controller {
         if($this->form_validation->run() == FALSE)
         {
             //Field validation failed.  User redirected to login page
-            $data['title'] = 'Login';
+            $data['title'] = 'Administrator Login';
 
             $this->load->view('template/header', $data);
-            $this->load->view('template/navigation');
-            $this->load->view('login_view', $data);
+            $this->load->view('adminlogin_view', $data);
             $this->load->view('template/footer');
         }
         else
         {
             //Go to private area
-            redirect('Home', 'refresh');
+            redirect('AdminHome', 'refresh');
         }
 
     }
 
-    function check_database($memberPwd)
+    function check_database($adminPwd)
     {
         //Field validation succeeded.  Validate against database
-        $memberEmail = $this->security->xss_clean($this->input->post('memberEmail'));
+        $adminEmail = $this->security->xss_clean($this->input->post('adminEmail'));
 
         //query the database
-        $result = $this->Login_model->login($memberEmail, $memberPwd);
+        $result = $this->AdminLogin_model->login($adminEmail, $adminPwd);
 
         if($result)
         {
 
-            $sess_array = array();
+            $admin_sess_array = array();
             foreach($result as $row)
             {
 
-                $sess_array = array(
-                    'memberID' => $row->memberID,
-                    'memberName' => $row->memberName,
+                $admin_sess_array = array(
+                    'adminID' => $row->adminID,
+                    'adminName' => $row->adminName,
                 );
-                $this->session->set_userdata('logged_in', $sess_array);
+                $this->session->set_userdata('logged_in', $admin_sess_array);
 
 
             }

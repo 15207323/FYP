@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="col-sm-12">
 
 				<p class="lead">
-					Lets' start by creating an event now!
+					Let's start by login (or register)!
 				</p>
 
 				<div class="row">

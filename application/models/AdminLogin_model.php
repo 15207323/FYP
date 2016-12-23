@@ -7,7 +7,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Date: 11/25/2016
  * Time: 2:03 AM
  */
-class login_model extends CI_Model
+class Adminlogin_model extends CI_Model
 {
     function __construct()
     {
@@ -15,12 +15,12 @@ class login_model extends CI_Model
 
     }
 
-    function login($memberEmail, $memberPwd)
+    function login($adminEmail, $adminPwd)
     {
-        $this->db->select('memberName, memberID, memberEmail, memberPwd');
-        $this->db->from('member');
-        $this->db->where('memberEmail', $memberEmail);
-        $this->db->where('memberPwd',$memberPwd);
+        $this->db->select('adminName, adminID, adminEmail, adminPwd');
+        $this->db->from('administrator');
+        $this->db->where('adminEmail', $adminEmail);
+        $this->db->where('adminPwd',$adminPwd);
         $this->db->limit(1);
 
         $query = $this->db->get();

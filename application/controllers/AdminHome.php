@@ -1,43 +1,51 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+if (!defined('BASEPATH')) exit('No direct script access allowed');
+
 /**
  * Created by PhpStorm.
  * User: san
- * Date: 11/25/2016
- * Time: 2:22 AM
+ * Date: 12/23/2016
+ * Time: 22:32 PM
  */
-class AdminHome extends CI_Controller
-{
-    function __construct(){
-        parent::__construct();
+class AdminHome extends CI_Controller {
 
+    function __construct()
+    {
+        parent::__construct();
         $this->load->helper('url');
         $this->load->library('session');
-        $this->load->helper('form');
-        $this->check_isvalidated();
     }
 
-    public function index(){
-        // If the user is validated, then this function will run
-        $this->load->helper('url');
-        echo 'Congratulations, you are logged in.';
-        $this->load->view('admin_home');
-        //logout link
-//        echo '<br /><a href="AdminHome/logout">logout</a>';
-//        echo '<br /><a href=''.base_url().'home/do_logout'>Logout Fool!</a>';
-        echo "<br /><a href='" . base_url() . "AdminHome/logout'>Logout</a>";
-    }
+    function index()
+    {
+        if($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            $data['adminName'] = $session_data['adminName'];
+            $data['title'] = 'Administrator Home';
+            $this->load->view('template/navigation_admin', $data);
+            $this->load->view('template/header', $data);
+            $this->load->view('adminhome_view', $data);
+            $this->load->view('template/footer');
 
-    private function check_isvalidated(){
-        if(! $this->session->userdata('validated')){
-            redirect(base_url().'Login');
+
+        }
+
+        else
+        {
+            //If no session, redirect to login page
+            redirect('Welcome', 'refresh');
         }
     }
 
-    public function logout(){
-        $this->session->sess_destroy();
-        redirect(base_url().'Welcome','refresh');
+    function logout()
+    {
+        $this->session->unset_userdata('logged_in');
+        $this->session->unset_userdata('adminID');
+        $this->session->unset_userdata('adminName');
+        session_destroy();
+        redirect('Welcome', 'refresh');
     }
 
 }
+
 ?>

@@ -4,7 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <div class="container">
     <h1>Home</h1>
-
     <div class="row">
         <div class="clearfix visible-sm-block"></div>
         <div class="col-sm-12">

@@ -27,6 +27,7 @@ class Home extends CI_Controller {
             $this->load->view('home_view', $data);
             $this->load->view('template/footer');
 
+
         }
 
         else
@@ -39,6 +40,8 @@ class Home extends CI_Controller {
     function logout()
     {
         $this->session->unset_userdata('logged_in');
+        $this->session->unset_userdata('memberID');
+        $this->session->unset_userdata('memberName');
         session_destroy();
         redirect('Welcome', 'refresh');
     }
