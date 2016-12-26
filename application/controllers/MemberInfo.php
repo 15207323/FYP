@@ -51,7 +51,6 @@ class MemberInfo extends CI_Controller
             $data['adminName'] = $session_data['adminName'];
             $data['title'] = 'View User Information';
 
-
             $this->load->view('template/navigation_admin', $data);
             $this->load->view('template/header', $data);
 
@@ -68,6 +67,7 @@ class MemberInfo extends CI_Controller
 
     }
 
+
     public function edit($name = '') {
 
         if($this->session->userdata('logged_in')){
@@ -81,9 +81,38 @@ class MemberInfo extends CI_Controller
             $this->load->view('template/header', $data);
 
             $this->data['memberInfo']=$this->GetMemberInfo_model->get_particular_member($name);
+            $this->load->model('EditMember_model',$data);
             $this->load->view('showparticularmember_view',$this->data);
 
             $this->load->view('template/footer');
+
+        } else {
+            //If no session, redirect to login page
+            redirect('Welcome', 'refresh');
+        }
+
+
+    }
+
+    public function delete($name = '') {
+
+        if($this->session->userdata('logged_in')){
+
+            $session_data = $this->session->userdata('logged_in');
+            $data['adminName'] = $session_data['adminName'];
+            $data['title'] = 'Delete User';
+
+
+            $this->load->view('template/navigation_admin', $data);
+            $this->load->view('template/header', $data);
+
+            $this->load->model('DeleteMember_model');
+            $this->DeleteMember_model->delete_member($name);
+
+            $this->load->view('sucessful_deletemember');
+
+            $this->load->view('template/footer');
+
 
         } else {
             //If no session, redirect to login page

@@ -14,16 +14,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				</p>
 
 				<div class="row">
-					<div class="col-xs-12 col-sm-4 col-md-4">
-						<a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#ffcc00;text-decoration:none;" href="<?php echo site_url('Login') ?>" role="button">Join Dining Event</a>
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#bfff87;text-decoration:none;" href="<?php echo site_url('Login') ?>" role="button">Login</a>
 					</div>
 
-					<div class="col-xs-12 col-sm-4 col-md-4">
-						<a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#ff814c;text-decoration:none;" href="<?php echo site_url('Login') ?>" role="button">Find Restaurant</a>
-					</div>
-
-					<div class="col-xs-12 col-sm-4 col-md-4">
-						<a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#b3ea32;text-decoration:none;" href="<?php echo site_url('Login') ?>" role="button">Get Coupon</a>
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#ffd987;text-decoration:none;" href="<?php echo site_url('Register') ?>" role="button">Register</a>
 					</div>
 
 				</div>

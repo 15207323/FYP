@@ -2,10 +2,6 @@
 <div class="container">
     <h1>Register</h1>
     <?php echo form_open("Register"); ?>
-    <?php if (isset($message)) { ?>
-        <h4>You have registered successfully!</h4><br>
-    <?php } ?>
-
     <div class="form-group">
 
 

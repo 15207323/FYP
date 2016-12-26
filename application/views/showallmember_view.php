@@ -15,7 +15,7 @@
                         <th><?php echo $member->memberID;?></th>
                         <td><?php echo $member->memberName;?></td>
                         <td><?php echo $member->memberEmail;?></td>
-                        <td><a type="button" class="btn btn-default btn-xs" href="<?php echo site_url("MemberInfo/view/$member->memberID"); ?>" role="button">View</a></td>
+                        <td><a type="button" class="btn btn-default btn-xs" href="<?php echo site_url("MemberInfo/view/$member->memberName"); ?>" role="button">View</a></td>
                     </tr>
                 <?php }?>
             </table>
