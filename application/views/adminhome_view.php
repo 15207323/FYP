@@ -11,11 +11,15 @@
 
 			<div class="row">
 				<div class="col-xs-12 col-sm-4 col-md-4">
+					<a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#ffcc00;text-decoration:none;" href="<?php echo site_url('AdminRegister') ?>" role="button">Admin Registration</a>
+				</div>
+
+				<div class="col-xs-12 col-sm-4 col-md-4">
 					<a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#ffcc00;text-decoration:none;" href="<?php echo site_url('ComingSoon') ?>" role="button">Contact Form</a>
 				</div>
 
 				<div class="col-xs-12 col-sm-4 col-md-4">
-					<a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#ffcc00;text-decoration:none;" href="<?php echo site_url('ComingSoon') ?>" role="button">Member</a>
+					<a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#ffcc00;text-decoration:none;" href="<?php echo site_url('MemberInfo') ?>" role="button">Member</a>
 				</div>
 
 				<div class="col-xs-12 col-sm-4 col-md-4">
