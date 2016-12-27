@@ -1,18 +1,20 @@
 
 <div class="container">
     <h1>Edit User</h1>
-    <?php echo form_open("EditMember"); ?>
+<!--    --><?php //$attributes = array($attributes);
+//    ?>
+    <?php echo form_open("MemberInfo/edit/". $member[0]->memberName); ?>
 
     <div class="form-group">
 
         <label for="memberID" class="col-sm-4 control-label">ID</label>
         <div class="col-sm-8">
-            <?php   ?>
+            <input type="text" disabled="disabled" class="form-control" name="memberID" value="<?php echo $member[0]->memberID; ?>" style="margin-bottom:10px;">
         </div>
 
         <label for="memberName" class="col-sm-4 control-label">Username</label>
         <div class="col-sm-8">
-            <?php   ?>
+            <input type="text" disabled="disabled" class="form-control" name="memberName" value="<?php echo $member[0]->memberName; ?>" style="margin-bottom:10px;">
         </div>
 
         <label for="memberPwd" class="col-sm-4 control-label">Password</label>
@@ -36,7 +38,7 @@
         <label for="memberTel" class="col-sm-4 control-label">Mobile Phone No.</label>
         <div class="col-sm-8">
             <?php echo form_error("memberTel", '<div class="error" style="color: #ff4500">', '</div>'); ?>
-            <input type="text" class="form-control" name="memberTel" value="<?php echo set_value('memberTel'); ?>" style="margin-bottom:20px;">
+            <input type="text" class="form-control" name="memberTel" value="<?php echo set_value('memberTel'); ?>" style="margin-bottom:10px;">
         </div>
 
         <label for="memberPoint" class="col-sm-4 control-label">Member Point</label>
@@ -47,7 +49,7 @@
 
 
         <div class="col-sm-offset-4 col-sm-8" style="margin-bottom:40px;">
-            <button type="submit" class="btn btn-default" value="Submit">Update</button>
+            <button type="submit" class="btn btn-default" value="Submit" name="post">Update</button>
         </div>
 
 

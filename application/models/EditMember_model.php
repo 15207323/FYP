@@ -1,32 +1,11 @@
 <?php
-    if (!defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * Created by PhpStorm.
- * User: san
- * Date: 12/26/2016
- * Time: 4:48 PM
- */
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 class EditMember_model extends CI_Model
 {
-    function __construct() {
+    public function update_memberinfo($inputdata,$username) {
 
-        parent::__construct();
-        $this->load->database();
-
-    }
-
-    function update_member(){
-
-        $update = array(
-
-        );
-
-        $this->db->where('memberName', $name);
-        $this->db->update('member', $update);
+        $this->db->where('memberName',$username);
+        $this->db->update('member',$inputdata);
 
     }
-
-
 }
-
-?>

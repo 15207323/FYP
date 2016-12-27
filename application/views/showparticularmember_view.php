@@ -32,7 +32,7 @@
     </div>
 
     <div class="col-sm-12 row" style="margin-bottom: 40px">
-<!--        <a type="button" class="btn btn-default" style="margin-right: 30px;" href="--><?php //echo site_url("MemberInfo/edit/$member->memberName"); ?><!--" role="button">Edit</a>-->
+        <a type="button" class="btn btn-default" style="margin-right: 30px;" href="<?php echo site_url("MemberInfo/edit/$member->memberName"); ?>" role="button">Edit</a>
         <a type="button" class="btn btn-default" href="<?php echo site_url("MemberInfo/delete/$member->memberName"); ?>" role="button">Delete</a>
     </div>
 
