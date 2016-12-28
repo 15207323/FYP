@@ -28,9 +28,9 @@
     </div>
 
     <div class="col-sm-12 row" style="margin-bottom: 40px">
-        <a type="button" class="btn btn-default" style="margin-right: 30px; href="<?php echo site_url("MemberInfo/edit/$member->memberName"); ?>" role="button">Edit</a>
+        <a type="button" class="btn btn-default" style="margin-right: 30px;" href="<?php echo site_url("UserInfo/edit/$member->memberName"); ?>" role="button">Edit</a>
     </div>
 
-    <a type="button" class="btn btn-default" href="javascript:window.history.go(-1);" role="button">Back</a>
+    <a type="button" class="btn btn-default" style="margin-right: 30px;" href="<?php echo site_url("Home"); ?>" role="button">Back</a>
 
 </div>

@@ -75,11 +75,6 @@ class MemberInfo extends CI_Controller
     }
 
 
-
-
-
-
-
     public function edit($member = NULL) {
 
         $this->check_login();
@@ -130,7 +125,6 @@ class MemberInfo extends CI_Controller
             $this->form_validation->set_rules($config);
 
 
-
             if (!$this->input->post('post')) {
 
 
@@ -143,48 +137,54 @@ class MemberInfo extends CI_Controller
                 $this->load->view('template/footer');
 
             } else {
+                if ($this->form_validation->run() == TRUE) {
 
+                    $inputdata = array();
 
-                $inputdata = array();
+                    if (($this->input->post('memberPwd') != NULL) && ($this->input->post('memberPwdConf') != NULL)) {
+                        $inputdata['memberPwd'] = $this->security->xss_clean($this->input->post('memberPwd'));
+                    }
 
-                if($this->input->post('memberPwd') != NULL){
-                    $inputdata['memberPwd'] = $this->security->xss_clean($this->input->post('memberPwd'));
+                    if ($this->input->post('memberEmail') != NULL) {
+                        $inputdata['memberEmail'] = $this->security->xss_clean($this->input->post('memberEmail'));
+
+                    }
+
+                    if ($this->input->post('memberTel') != NULL) {
+                        $inputdata['memberTel'] = $this->security->xss_clean($this->input->post('memberTel'));
+
+                    }
+
+                    if ($this->input->post('memberPoint') != NULL) {
+                        $inputdata['memberPoint'] = $this->security->xss_clean($this->input->post('memberPoint'));
+                    }
+
+                    $this->load->model('EditMember_model');
+                    $this->EditMember_model->update_memberinfo($inputdata, $username);
+
+                    $data['title'] = 'Edit User Information';
+                    $data['attributes'] = $this->GetMemberInfo_model->get_particular_member($username);
+
+                    $this->load->view('template/navigation_admin');
+                    $this->load->view('template/header', $data);
+                    $this->load->view('sucessful_editmember', $data);
+                    $this->load->view('template/footer');
+
+                } else {
+
+                    $data['title'] = 'Edit User Information';
+                    $data['attributes'] = $this->GetMemberInfo_model->get_particular_member($username);
+
+                    $this->load->view('template/navigation_admin');
+                    $this->load->view('template/header', $data);
+                    $this->load->view('editmember_view', $data);
+                    $this->load->view('template/footer');
+
                 }
-
-                if($this->input->post('memberEmail') != NULL){
-                    $inputdata['memberEmail'] = $this->security->xss_clean($this->input->post('memberEmail'));
-
-                }
-
-                if($this->input->post('memberTel') != NULL){
-                    $inputdata['memberTel'] = $this->security->xss_clean($this->input->post('memberTel'));
-
-                }
-
-                if($this->input->post('memberPoint') != NULL){
-                    $inputdata['memberPoint'] = $this->security->xss_clean($this->input->post('memberPoint'));
-                }
-
-                //var_dump($this->input->post('memberPoint'));
-
-                $this->load->model('EditMember_model');
-
-              //  echo $member;
-               // echo "00000";
-
-                $this->EditMember_model->update_memberinfo($inputdata, $username);
-
-                $data['title'] = 'Edit User Information';
-                $data['attributes'] = $this->GetMemberInfo_model->get_particular_member($username);
-
-                $this->load->view('template/navigation_admin');
-                $this->load->view('template/header', $data);
-                $this->load->view('sucessful_editmember', $data);
-                $this->load->view('template/footer');
             }
 
 
-        }
+    }
 
 
 
@@ -235,34 +235,41 @@ class MemberInfo extends CI_Controller
                 array(
                     'field' => 'memberName',
                     'label' => 'Username',
-                    'rules' => 'trim|callback_check_database',
+                    'rules' => 'trim',
                 ),
             );
 
             $this->form_validation->set_rules($config);
+            $memberName = $this->security->xss_clean($this->input->post('memberName'));
 
             if($this->form_validation->run() == FALSE)
             {
                 $session_data = $this->session->userdata('logged_in');
                 $data['adminName'] = $session_data['adminName'];
-                $data['title'] = 'User Not Found';
+
+                $data['title'] = 'View All Member';
 
                 $this->load->view('template/navigation_admin', $data);
                 $this->load->view('template/header', $data);
-                $this->load->view('usernotfound_view');
+
+                $this->data['memberInfo']=$this->GetMemberInfo_model->get_member();
+                $this->load->view('showallmember_view',$this->data);
+
                 $this->load->view('template/footer');
             }
             else
             {
                 $session_data = $this->session->userdata('logged_in');
+
+                $this->security->xss_clean($this->input->post('memberName'));
+                $this->data['memberInfo']=$this->GetMemberInfo_model->get_particular_member($memberName);
+
+
                 $data['adminName'] = $session_data['adminName'];
                 $data['title'] = 'View User Information';
 
                 $this->load->view('template/navigation_admin', $data);
                 $this->load->view('template/header', $data);
-
-                $this->data['memberInfo']=$this->GetMemberInfo_model->get_particular_member($Username);
-
 
                 $this->load->view('showparticularmember_view',$this->data);
 
@@ -277,24 +284,5 @@ class MemberInfo extends CI_Controller
 
 
     }
-
-    function check_database($memberName)
-    {
-        //Field validation succeeded.  Validate against database
-        $memberName = $this->security->xss_clean($this->input->post('memberName'));
-
-        //query the database
-        $result = $this->SearchMember_model->search($memberName);
-
-        if($result)
-        {
-            return TRUE;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
 
 }?>
