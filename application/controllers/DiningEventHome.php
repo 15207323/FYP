@@ -6,7 +6,7 @@
  * Date: 12/28/2016
  * Time: 11:40 PM
  */
-class DiningEvent extends CI_Controller
+class DiningEventHome extends CI_Controller
 {
 
     function __construct() {
@@ -14,7 +14,6 @@ class DiningEvent extends CI_Controller
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->database();
-        $this->load->library('form_validation');
 
     }
 
