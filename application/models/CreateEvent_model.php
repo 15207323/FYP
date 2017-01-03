@@ -4,19 +4,25 @@
 /**
  * Created by PhpStorm.
  * User: san
- * Date: 11/11/2016
- * Time: 11:57 AM
+ * Date: 12/22/2016
+ * Time: 5:51 PM
  */
-class AddMember_model extends CI_Model
+class CreateEvent_model extends CI_Model
 {
     function __construct() {
+
         parent::__construct();
         $this->load->database();
+
     }
-    function form_insert($memberdata){
-// Inserting in Table(students) of Database(college)
-        $this->db->insert('member', $memberdata);
+
+    function form_insert($eventdata){
+
+        $this->db->insert('diningevent', $eventdata);
+
     }
+
+
 
 }
 

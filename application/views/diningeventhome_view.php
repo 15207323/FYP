@@ -14,7 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </div>
 
                 <div class="col-xs-12 col-sm-4 col-md-4">
-                    <a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#ff814c;text-decoration:none;" href="<?php echo site_url('ComingSoon') ?>" role="button">Create Dining Event</a>
+                    <a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#ff814c;text-decoration:none;" href="<?php echo site_url('EventInfo/create') ?>" role="button">Create Dining Event</a>
                 </div>
 
                 <div class="col-xs-12 col-sm-4 col-md-4">
