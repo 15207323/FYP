@@ -65,11 +65,10 @@
     </div>
 
     <div class="col-sm-12 row" style="margin-bottom: 40px">
-<!--        <a type="button" class="btn btn-default" style="margin-right: 30px;" href="--><?php //echo site_url("MemberInfo/edit/$member->memberName"); ?><!--" role="button">Edit</a>-->
-<!--        <a type="button" class="btn btn-default" href="--><?php //echo site_url("MemberInfo/delete/$member->memberName"); ?><!--" role="button">Delete</a>-->
-        <a type="button" class="btn btn-default" href="<?php echo site_url("ComingSoon"); ?>" role="button">Join</a>
+        <a type="button" class="btn btn-default" style="margin-right: 30px;" href="<?php echo site_url("ComingSoon"); ?>" role="button">Edit</a>
+        <a type="button" class="btn btn-default" href="<?php echo site_url("EventInfo/delete/$event->eventID"); ?>" role="button">Delete</a>
     </div>
 
-    <a type="button" class="btn btn-default" style="margin-top: 40px" href="<?php echo site_url("EventInfo"); ?>"" role="button">Back</a>
+    <a type="button" class="btn btn-default" style="margin-top: 40px" href="javascript:window.history.go(-1);" role="button">Back</a>
 
 </div>

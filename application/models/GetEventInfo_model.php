@@ -29,5 +29,17 @@ class GetEventInfo_model extends CI_Model
 
     }
 
+    public function get_created_event($name) {
+
+        $this->db->select("eventID,eventCreatorName,eventTitle,eventCreateTime,eventStartTime,eventEndTime,eventRestaurantName");
+        $this->db->from('diningevent');
+        $this->db->where('eventCreatorName',$name);
+        $query = $this->db->get();
+        return $query->result();
+
+    }
+
+
+
 }
 ?>

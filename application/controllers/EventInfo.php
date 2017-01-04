@@ -16,8 +16,11 @@ class EventInfo extends CI_Controller
         $this->load->database();
         $this->load->model('GetEventInfo_model');
         $this->load->model('CreateEvent_model');
+        $this->load->model('EditPoint_model');
+        $this->load->model('DeleteEvent_model');
         $this->load->library('form_validation');
-//        $this->load->model('SearchEvent_model','');
+
+        $this->load->model('SearchEvent_model','');
 
     }
 
@@ -56,12 +59,9 @@ class EventInfo extends CI_Controller
 
             $this->data['eventInfo']=$this->GetEventInfo_model->get_particular_event($id);
 
-
             $this->load->view('showparticularevent_view',$this->data);
 
             $this->load->view('template/footer');
-
-
 
         } else {
             //If no session, redirect to login page
@@ -70,6 +70,64 @@ class EventInfo extends CI_Controller
 
 
     }
+
+    public function viewcreated($id = '') {
+
+        if($this->session->userdata('logged_in')){
+
+            $data['title'] = 'View Dining Event Information';
+
+            $this->load->view('template/navigation_member', $data);
+            $this->load->view('template/header', $data);
+
+            $this->data['eventInfo']=$this->GetEventInfo_model->get_particular_event($id);
+
+            $this->load->view('showparticularcreatedevent_view',$this->data);
+
+            $this->load->view('template/footer');
+
+        } else {
+            //If no session, redirect to login page
+            redirect('Welcome', 'refresh');
+        }
+
+
+    }
+
+    public function created() {
+
+        if($this->session->userdata('logged_in')){
+
+            $session_data = $this->session->userdata('logged_in');
+            $data['memberName'] = $session_data['memberName'];
+            $name = $session_data['memberName'];
+            $data['title'] = 'View Created Event';
+
+            $this->load->view('template/navigation_member', $data);
+            $this->load->view('template/header', $data);
+
+            $this->data['eventInfo']=$this->GetEventInfo_model->get_created_event($name);
+
+            if (empty($this->data['eventInfo'])){
+
+                $this->load->view('resultnotfound_view');
+
+            } else{
+
+                $this->load->view('showallcreatedevent_view',$this->data);
+
+            }
+
+            $this->load->view('template/footer');
+
+        } else {
+            //If no session, redirect to login page
+            redirect('Welcome', 'refresh');
+        }
+
+    }
+
+
 
     public function create() {
 
@@ -165,11 +223,16 @@ class EventInfo extends CI_Controller
                 'eventMinParti' => $this->security->xss_clean($this->input->post('eventMinParti')),
                 'eventMaxParti' => $this->security->xss_clean($this->input->post('eventMaxParti')),
                 'eventEstFee' => $this->security->xss_clean($this->input->post('eventEstFee')),
+                'eventMemberPoint' => 50,
                 'eventRestaurantName' => $this->security->xss_clean($this->input->post('eventRestaurantName')),
                 'eventAddress' => $this->security->xss_clean($this->input->post('eventAddress')),
             );
 
+            $pointvalue = $eventdata['eventMemberPoint'];
+
             $this->CreateEvent_model->form_insert($eventdata);
+
+            $this->EditPoint_model->event_addpoint($session_memberName,$pointvalue);
 
             $data['title'] = 'Create Dining Event';
             $this->load->view('template/navigation_member');
@@ -195,6 +258,113 @@ class EventInfo extends CI_Controller
         }
     }
 
+    public function delete($id = '') {
+
+        if($this->session->userdata('logged_in')){
+
+            $session_data = $this->session->userdata('logged_in');
+            $data['memberName'] = $session_data['memberName'];
+            $data['title'] = 'Delete Dining Event';
+
+
+            $this->load->view('template/navigation_member', $data);
+            $this->load->view('template/header', $data);
+
+            $this->load->model('DeleteEvent_model');
+            $this->DeleteEvent_model->delete_event($id);
+
+            $this->load->view('sucessful_deleteevent');
+
+            $this->load->view('template/footer');
+
+
+        } else {
+            //If no session, redirect to login page
+            redirect('Welcome', 'refresh');
+        }
+
+
+    }
+
+    public function search() {
+
+        if($this->session->userdata('logged_in')){
+
+            $this->load->library('form_validation');
+
+            $config = array(
+
+                array(
+                    'field' => 'eventID',
+                    'label' => 'Event ID',
+                    'rules' => 'trim|callback_check_database',
+                ),
+            );
+
+            $this->form_validation->set_rules($config);
+            $eventID = $this->security->xss_clean($this->input->post('eventID'));
+
+            if($this->form_validation->run() == FALSE)
+            {
+                $session_data = $this->session->userdata('logged_in');
+                $data['memberName'] = $session_data['memberName'];
+
+                $data['title'] = 'View All Dining Event';
+
+                $this->load->view('template/navigation_member', $data);
+                $this->load->view('template/header', $data);
+
+                $this->data['eventInfo']=$this->GetEventInfo_model->get_event();
+                $this->load->view('showallevent_view',$this->data);
+
+                $this->load->view('template/footer');
+            }
+            else
+            {
+                $session_data = $this->session->userdata('logged_in');
+
+                $this->security->xss_clean($this->input->post('eventID'));
+                $this->data['eventInfo']=$this->GetEventInfo_model->get_particular_event($eventID);
+
+
+                $data['memberName'] = $session_data['memberName'];
+                $data['title'] = 'View Dining Event Information';
+
+                $this->load->view('template/navigation_member', $data);
+                $this->load->view('template/header', $data);
+
+                $this->load->view('showparticularevent_view',$this->data);
+
+                $this->load->view('template/footer');
+            }
+
+        } else {
+            //If no session, redirect to login page
+            redirect('Welcome', 'refresh');
+        }
+
+
+
+    }
+
+    function check_database($eventid)
+    {
+        //Field validation succeeded.  Validate against database
+        $eventID = $this->security->xss_clean($this->input->post('eventID'));
+
+        //query the database
+        $result = $this->SearchEvent_model->search($eventID);
+
+        if($result)
+        {
+            return TRUE;
+        }
+        else
+        {
+            $this->form_validation->set_message('check_database', 'Invalid Event ID.');
+            return false;
+        }
+    }
 
 
 

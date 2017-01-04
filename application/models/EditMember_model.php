@@ -8,4 +8,6 @@ class EditMember_model extends CI_Model
         $this->db->update('member',$inputdata);
 
     }
+
+
 }
