@@ -11,7 +11,7 @@ class GetEventInfo_model extends CI_Model
 
     public function get_event() {
 
-        $this->db->select("eventID,eventCreatorName,eventTitle,eventCreateTime,eventStartTime,eventEndTime,eventRestaurantName");
+        $this->db->select("eventID,eventCreatorName,eventTitle,eventCreateTime,eventStartTime,eventEndTime,eventMinParti,eventMaxParti,eventRestaurantName");
         $this->db->from('diningevent');
         $this->db->order_by('eventID','DSC');
         $query = $this->db->get();
@@ -31,7 +31,7 @@ class GetEventInfo_model extends CI_Model
 
     public function get_created_event($name) {
 
-        $this->db->select("eventID,eventCreatorName,eventTitle,eventCreateTime,eventStartTime,eventEndTime,eventRestaurantName");
+        $this->db->select("eventID,eventCreatorName,eventTitle,eventCreateTime,eventStartTime,eventEndTime,eventMinParti,eventMaxParti,eventRestaurantName");
         $this->db->from('diningevent');
         $this->db->where('eventCreatorName',$name);
         $query = $this->db->get();
@@ -39,6 +39,43 @@ class GetEventInfo_model extends CI_Model
 
     }
 
+    public function get_eventpoint($id) {
+        $this->db->select("eventMemberPoint");
+        $this->db->from('diningevent');
+        $this->db->where('eventID',$id);
+
+        return $this->db->get()->row()->eventMemberPoint;
+    }
+
+    public function get_eventmax($id) {
+        $this->db->select("eventMaxParti");
+        $this->db->from('diningevent');
+        $this->db->where('eventID',$id);
+
+        return $this->db->get()->row()->eventMaxParti;
+    }
+
+    public function get_eventcreatorname($id) {
+        $this->db->select("eventCreatorName");
+        $this->db->from('diningevent');
+        $this->db->where('eventID',$id);
+
+        return $this->db->get()->row()->eventCreatorName;
+    }
+
+    public function get_jointevent($id){
+
+        $this->db->select('diningeventparticipant.*,diningevent.eventID,diningevent.eventCreatorName,diningevent.eventTitle,diningevent.eventCreateTime,diningevent.eventStartTime,diningevent.eventEndTime,diningevent.eventMinParti,diningevent.eventMaxParti,diningevent.eventRestaurantName');
+        $this->db->from('diningeventparticipant,diningevent');
+        $this->db->where('diningeventparticipant.eventParticipantID',$id);
+        $this->db->where('diningeventparticipant.eventID = diningevent.eventID');
+
+        $query = $this->db->get();
+
+        return $query->result();
+
+
+    }
 
 
 }

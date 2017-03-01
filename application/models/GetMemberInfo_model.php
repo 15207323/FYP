@@ -19,6 +19,39 @@ class GetMemberInfo_model extends CI_Model
 
     }
 
+    public function get_memberpoint($id) {
+
+        $this->db->select("memberPoint");
+        $this->db->from('member');
+        $this->db->where('memberID',$id);
+
+        return $this->db->get()->row()->memberPoint;
+
+    }
+
+    public function get_memberid($name) {
+
+        $this->db->select("memberID");
+        $this->db->from('member');
+        $this->db->where('memberName',$name);
+
+        return $this->db->get()->row()->memberID;
+
+    }
+
+
+    public function get_membername($id) {
+
+        $this->db->select("memberName");
+        $this->db->from('member');
+        $this->db->where('memberID',$id);
+
+        return $this->db->get()->row()->memberName;
+
+    }
+
+
+
     public function get_particular_member($name) {
 
         $this->db->select("memberID,memberName,memberPwd,memberEmail,memberTel,memberPoint");

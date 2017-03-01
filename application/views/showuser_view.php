@@ -10,10 +10,10 @@
                     <th>Username</th>
                     <td><?php echo $member->memberName;?></td>
                 </tr>
-                <tr>
-                    <th>Password</th>
-                    <td><?php echo $member->memberPwd;?></td>
-                </tr>
+<!--                <tr>-->
+<!--                    <th>Password</th>-->
+<!--                    <td>--><?php //echo $member->memberPwd;?><!--</td>-->
+<!--                </tr>-->
                 <tr>
                     <th>E-mail</th>
                     <td><?php echo $member->memberEmail;?></td>

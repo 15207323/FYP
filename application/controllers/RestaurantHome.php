@@ -1,0 +1,41 @@
+<?php
+    if (!defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * Created by PhpStorm.
+ * User: san
+ * Date: 12/28/2016
+ * Time: 11:40 PM
+ */
+class RestaurantHome extends CI_Controller
+{
+
+    function __construct() {
+        parent::__construct();
+        $this->load->helper('url');
+        $this->load->library('session');
+        $this->load->database();
+
+    }
+
+    public function index() {
+
+        if($this->session->userdata('logged_in')) {
+
+            $data['title'] = 'Restaurant Home';
+
+            $this->load->view('template/navigation_member', $data);
+            $this->load->view('template/header', $data);
+            $this->load->view('restauranthome_view');
+            $this->load->view('template/footer');
+
+        }
+
+        else
+        {
+            //If no session, redirect to login page
+            redirect('Welcome', 'refresh');
+        }
+
+    }
+
+}

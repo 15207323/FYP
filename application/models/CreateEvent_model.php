@@ -19,6 +19,8 @@ class CreateEvent_model extends CI_Model
     function form_insert($eventdata){
 
         $this->db->insert('diningevent', $eventdata);
+        $last_id = $this->db->insert_id();
+        return $last_id;
 
     }
 

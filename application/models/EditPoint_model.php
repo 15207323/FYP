@@ -11,9 +11,17 @@ class EditPoint_model extends CI_Model
 
     public function event_addpoint($name,$point) {
 
-        $this->db->set('memberPoint','memberPoint + '. (int)$point,FALSE);
+        $data = array('memberPoint'=>$point);
         $this->db->where('memberName',$name);
-        $this->db->update('member');
+        $this->db->update('member',$data);
+
+    }
+
+    public function event_minuspoint($name,$point) {
+
+        $data = array('memberPoint'=>$point);
+        $this->db->where('memberName',$name);
+        $this->db->update('member',$data);
 
     }
 

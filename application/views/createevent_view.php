@@ -28,33 +28,77 @@
             </div>
 
             <label for="eventStartTime" class="col-sm-4 control-label">Start Time</label>
-            <div class="col-sm-8">
+        <div class="col-sm-8"  style="margin-bottom:10px;">
+            <div class="input-group date" id="eventStartTime">
                 <?php echo form_error("eventStartTime", '<div class="error" style="color: #ff4500">', '</div>'); ?>
-                <input type="text" class="form-control" name="eventStartTime" placeholder="yyyy-MM-dd HH:mm:ss" value="<?php echo set_value('eventStartTime'); ?>" style="margin-bottom:10px;">
+                <input type="text" class="form-control" name="eventStartTime"  value="<?php echo set_value('eventStartTime'); ?>">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+                </div>
             </div>
 
-            <label for="eventEndTime" class="col-sm-4 control-label">End Time</label>
-            <div class="col-sm-8">
-                <?php echo form_error("eventEndTime", '<div class="error" style="color: #ff4500">', '</div>'); ?>
-                <input type="text" class="form-control" name="eventEndTime" placeholder="yyyy-MM-dd HH:mm:ss" value="<?php echo set_value('eventEndTime'); ?>" style="margin-bottom:10px;">
-            </div>
 
-            <label for="eventMinParti" class="col-sm-4 control-label">Min. Participant</label>
-            <div class="col-sm-8">
-                <?php echo form_error("eventMinParti", '<div class="error" style="color: #ff4500">', '</div>'); ?>
-                <input type="text" class="form-control" name="eventMinParti" placeholder="include yourself" value="<?php echo set_value('eventMinParti'); ?>" style="margin-bottom:10px;">
-            </div>
+            <label for="eventEndTime" class="col-sm-4 control-label" >End Time</label>
+            <div class="col-sm-8"  style="margin-bottom:10px;">
+                <div class="input-group date" id="eventEndTime">
+                    <?php echo form_error("eventEndTime", '<div class="error" style="color: #ff4500">', '</div>'); ?>
+                    <input type='text' class="form-control" name="eventEndTime" value="<?php echo set_value('eventEndTime'); ?>" >  </input>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar" ></span>
+                    </span>
+                </div>
+                </div>
 
-            <label for="eventMaxParti" class="col-sm-4 control-label">Max. Participant</label>
-            <div class="col-sm-8">
-                <?php echo form_error("eventMaxParti", '<div class="error" style="color: #ff4500">', '</div>'); ?>
-                <input type="text" class="form-control" name="eventMaxParti" placeholder="include yourself" value="<?php echo set_value('eventMaxParti'); ?>" style="margin-bottom:10px;">
-            </div>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css" />
+        <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
+        <script type="text/javascript" src="<?php echo base_url().'assets/'?>js/transition.min.js"></script>
+        <script type="text/javascript" src="https://getbootstrap.com/2.0.4/assets/js/bootstrap-collapse.js"></script>
+        <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/development/src/js/bootstrap-datetimepicker.js"></script>
+        <link rel="stylesheet" href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/build/css/bootstrap-datetimepicker.css">
 
-            <label for="eventEstFee" class="col-sm-4 control-label">Estimated Fee</label>
+        <script type="text/javascript">
+
+            $('#eventStartTime,#eventEndTime').datetimepicker({
+                useCurrent: false,
+                minDate: moment(),
+                format: "YYYY-MM-DD HH:mm:ss"
+            });
+            $('#eventStartTime').datetimepicker().on('dp.change', function (e) {
+                var incrementDay = moment(new Date(e.date));
+                incrementDay.add(1, 'days');
+                $('#eventEndTime').data('DateTimePicker').minDate(incrementDay);
+                $(this).data("DateTimePicker").hide();
+            });
+
+            $('#eventEndTime').datetimepicker().on('dp.change', function (e) {
+                var decrementDay = moment(new Date(e.date));
+                decrementDay.subtract(1, 'days');
+                $('#eventStartTime').data('DateTimePicker').maxDate(decrementDay);
+                $(this).data("DateTimePicker").hide();
+            });
+
+        </script>
+
+        <label for="eventMinParti" class="col-sm-4 control-label">Min. Participants (include you)</label>
+        <div class="col-sm-8">
+            <?php echo form_error("eventMinParti", '<div class="error" style="color: #ff4500">', '</div>'); ?>
+            <input type="number" class="form-control" name="eventMinParti" step="1" value="<?php echo set_value('eventMinParti'); ?>" style="margin-bottom:12px;">
+        </div>
+
+        <label for="eventEstFee" class="col-sm-4 control-label">Max. Participants (include you)</label>
+        <div class="col-sm-8">
+            <?php echo form_error("eventMaxParti", '<div class="error" style="color: #ff4500">', '</div>'); ?>
+            <input type="number" class="form-control" name="eventMaxParti" step="1" value="<?php echo set_value('eventMaxParti'); ?>" style="margin-bottom:12px;">
+        </div>
+
+        <label for="eventEstFee" class="col-sm-4 control-label">Estimated Fee ($)</label>
             <div class="col-sm-8">
                 <?php echo form_error("eventEstFee", '<div class="error" style="color: #ff4500">', '</div>'); ?>
-                <input type="number" class="form-control" name="eventEstFee" placeholder="0.00" step="0.01" value="<?php echo set_value('eventEstFee'); ?>" style="margin-bottom:10px;">
+                <input type="number" class="form-control" name="eventEstFee" onchange="setTwoNumberDecimal" step="0.10" value="<?php echo set_value('eventEstFee'); ?>" style="margin-bottom:10px;">
             </div>
 
             <label for="eventRestaurantName" class="col-sm-4 control-label">Restaurant Name</label>
@@ -79,6 +123,6 @@
 
         <a type="button" class="btn btn-default" href="<?php echo site_url("DiningEventHome"); ?>" role="button">Back</a>
 
-    </div>
+    </>
 
 </div>

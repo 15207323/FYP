@@ -1,8 +1,10 @@
 
 
 <div class="container">
-    <h1>View Created Event</h1>
+    <h1>View All Joint Dining Event</h1>
     <div class="col-sm-12">
+
+
         <row>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -29,7 +31,7 @@
                             <td><?php echo $event->eventMinParti;?></td>
                             <td><?php echo $event->eventMaxParti;?></td>
                             <td><?php echo $event->eventRestaurantName;?></td>
-                            <td><a type="button" class="btn btn-default btn-xs" href="<?php echo site_url("EventInfo/viewcreated/$event->eventID"); ?>" role="button">View</a></td>
+                            <td><a type="button" class="btn btn-default btn-xs" href="<?php echo site_url("EventInfo/viewjoint/$event->eventID"); ?>" role="button">View</a></td>
                         </tr>
                     <?php }?>
                 </table>
