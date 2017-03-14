@@ -62,8 +62,10 @@ class VerifyLogin extends CI_Controller {
         //Field validation succeeded.  Validate against database
         $memberEmail = $this->security->xss_clean($this->input->post('memberEmail'));
 
+        $pwd = md5($memberPwd);
+
         //query the database
-        $result = $this->Login_model->login($memberEmail, $memberPwd);
+        $result = $this->Login_model->login($memberEmail, $pwd);
 
         if($result)
         {

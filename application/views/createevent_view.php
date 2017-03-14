@@ -50,39 +50,6 @@
                 </div>
                 </div>
 
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.min.css" />
-        <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
-        <script type="text/javascript" src="<?php echo base_url().'assets/'?>js/transition.min.js"></script>
-        <script type="text/javascript" src="https://getbootstrap.com/2.0.4/assets/js/bootstrap-collapse.js"></script>
-        <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="https://rawgit.com/Eonasdan/bootstrap-datetimepicker/development/src/js/bootstrap-datetimepicker.js"></script>
-        <link rel="stylesheet" href="https://cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/v4.0.0/build/css/bootstrap-datetimepicker.css">
-
-        <script type="text/javascript">
-
-            $('#eventStartTime,#eventEndTime').datetimepicker({
-                useCurrent: false,
-                minDate: moment(),
-                format: "YYYY-MM-DD HH:mm:ss"
-            });
-            $('#eventStartTime').datetimepicker().on('dp.change', function (e) {
-                var incrementDay = moment(new Date(e.date));
-                incrementDay.add(1, 'days');
-                $('#eventEndTime').data('DateTimePicker').minDate(incrementDay);
-                $(this).data("DateTimePicker").hide();
-            });
-
-            $('#eventEndTime').datetimepicker().on('dp.change', function (e) {
-                var decrementDay = moment(new Date(e.date));
-                decrementDay.subtract(1, 'days');
-                $('#eventStartTime').data('DateTimePicker').maxDate(decrementDay);
-                $(this).data("DateTimePicker").hide();
-            });
-
-        </script>
-
         <label for="eventMinParti" class="col-sm-4 control-label">Min. Participants (include you)</label>
         <div class="col-sm-8">
             <?php echo form_error("eventMinParti", '<div class="error" style="color: #ff4500">', '</div>'); ?>
@@ -98,7 +65,7 @@
         <label for="eventEstFee" class="col-sm-4 control-label">Estimated Fee ($)</label>
             <div class="col-sm-8">
                 <?php echo form_error("eventEstFee", '<div class="error" style="color: #ff4500">', '</div>'); ?>
-                <input type="number" class="form-control" name="eventEstFee" onchange="setTwoNumberDecimal" step="0.10" value="<?php echo set_value('eventEstFee'); ?>" style="margin-bottom:10px;">
+                <input type="number" class="form-control" name="eventEstFee" value="<?php echo set_value('eventEstFee'); ?>" style="margin-bottom:10px;">
             </div>
 
             <label for="eventRestaurantName" class="col-sm-4 control-label">Restaurant Name</label>

@@ -14,6 +14,9 @@ class RestaurantHome extends CI_Controller
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->database();
+        $this->load->library('form_validation');
+        $this->load->model('GetRestInfo_model');
+        $this->load->model('SearchRest_model','');
 
     }
 
@@ -23,13 +26,15 @@ class RestaurantHome extends CI_Controller
 
             $data['title'] = 'Restaurant Home';
 
-            $this->load->view('template/navigation_member', $data);
+            $this->data['restInfo']=$this->GetRestInfo_model->get_top_restaurant();
+            $this->data['restranInfo']=$this->GetRestInfo_model->get_random_restaurant();
+
             $this->load->view('template/header', $data);
+            $this->load->view('template/navigation_memberhome', $this->data);
             $this->load->view('restauranthome_view');
             $this->load->view('template/footer');
 
         }
-
         else
         {
             //If no session, redirect to login page

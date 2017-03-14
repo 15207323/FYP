@@ -9,11 +9,13 @@
 class GetEventInfo_model extends CI_Model
 {
 
+//    member
+
     public function get_event() {
 
         $this->db->select("eventID,eventCreatorName,eventTitle,eventCreateTime,eventStartTime,eventEndTime,eventMinParti,eventMaxParti,eventRestaurantName");
         $this->db->from('diningevent');
-        $this->db->order_by('eventID','DSC');
+        $this->db->order_by('eventID','DESC');
         $query = $this->db->get();
         return $query->result();
 
@@ -24,6 +26,7 @@ class GetEventInfo_model extends CI_Model
         $this->db->select("eventID,eventCreatorName,eventTitle,eventAim,eventDesc,eventCreateTime,eventStartTime,eventEndTime,eventMinParti,eventMaxParti,eventEstFee,eventRestaurantName,eventAddress");
         $this->db->from('diningevent');
         $this->db->where('eventID',$id);
+        $this->db->order_by('eventID','DESC');
         $query = $this->db->get();
         return $query->result();
 
@@ -34,6 +37,7 @@ class GetEventInfo_model extends CI_Model
         $this->db->select("eventID,eventCreatorName,eventTitle,eventCreateTime,eventStartTime,eventEndTime,eventMinParti,eventMaxParti,eventRestaurantName");
         $this->db->from('diningevent');
         $this->db->where('eventCreatorName',$name);
+        $this->db->order_by('eventID','DESC');
         $query = $this->db->get();
         return $query->result();
 

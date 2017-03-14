@@ -19,13 +19,27 @@ class Home extends CI_Controller {
     function index()
     {
         if($this->session->userdata('logged_in')) {
-            $session_data = $this->session->userdata('logged_in');
-            $data['memberName'] = $session_data['memberName'];
-            $data['title'] = 'Home';
-            $this->load->view('template/navigation_member', $data);
-            $this->load->view('template/header', $data);
-            $this->load->view('home_view', $data);
-            $this->load->view('template/footer');
+
+            if(array_key_exists("adminID",$this->session->userdata('logged_in'))) {
+                $session_data = $this->session->userdata('logged_in');
+                $data['adminName'] = $session_data['adminName'];
+                $data['title'] = 'Administrator Home';
+                $this->load->view('template/navigation_admin', $data);
+                $this->load->view('template/header', $data);
+                $this->load->view('adminhome_view', $data);
+                $this->load->view('template/footer');
+
+            }else if(array_key_exists("memberID",$this->session->userdata('logged_in'))){
+
+                $session_data = $this->session->userdata('logged_in');
+                $data['memberName'] = $session_data['memberName'];
+                $data['title'] = 'Home';
+                $this->load->view('template/navigation_memberhome', $data);
+                $this->load->view('template/header', $data);
+                $this->load->view('home_view', $data);
+                $this->load->view('template/footer');
+
+            }
 
 
         }

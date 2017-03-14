@@ -59,13 +59,13 @@ class UserInfo extends CI_Controller
                 array(
                     'field' => 'memberPwd',
                     'label' => 'Password',
-                    'rules' => 'trim|min_length[3]|max_length[20]',
+                    'rules' => 'trim|required|min_length[5]|max_length[20]',
                 ),
 
                 array(
                     'field' => 'memberPwdConf',
                     'label' => 'Password Confirmation',
-                    'rules' => 'trim|matches[memberPwd]',
+                    'rules' => 'trim|required|matches[memberPwd]',
                 ),
 
                 array(
@@ -104,7 +104,7 @@ class UserInfo extends CI_Controller
                     $inputdata = array();
 
                     if (($this->input->post('memberPwd') != NULL) && ($this->input->post('memberPwdConf') != NULL)) {
-                        $inputdata['memberPwd'] = $this->security->xss_clean($this->input->post('memberPwd'));
+                        $inputdata['memberPwd'] = md5($this->security->xss_clean($this->input->post('memberPwd')));
                     }
 
                     if ($this->input->post('memberEmail') != NULL) {

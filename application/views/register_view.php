@@ -1,5 +1,5 @@
 
-<div class="container">
+<div class="container" >
     <h1>Register</h1>
     <?php echo form_open("Register"); ?>
     <div class="form-group">
@@ -49,3 +49,5 @@
     </div>
 
 </div>
+
+

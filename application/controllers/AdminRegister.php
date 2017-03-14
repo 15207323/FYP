@@ -32,7 +32,7 @@ class AdminRegister extends CI_Controller
             array(
                 'field' => 'adminPwd',
                 'label' => 'Password',
-                'rules' => 'trim|required|min_length[3]|max_length[20]',
+                'rules' => 'trim|required|min_length[6]|max_length[20]',
             ),
 
             array(
@@ -62,7 +62,7 @@ class AdminRegister extends CI_Controller
         } else {
             $admindata = array(
                 'adminName' => $this->security->xss_clean($this->input->post('adminName')),
-                'adminPwd' => $this->security->xss_clean($this->input->post('adminPwd')),
+                'adminPwd' => md5($this->security->xss_clean($this->input->post('adminPwd'))),
                 'adminEmail' => $this->security->xss_clean($this->input->post('adminEmail')),
             );
             $this->AdminRegister_model->form_insert($admindata);

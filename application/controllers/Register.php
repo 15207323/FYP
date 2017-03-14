@@ -30,7 +30,7 @@ class Register extends CI_Controller
             array(
                 'field' => 'memberPwd',
                 'label' => 'Password',
-                'rules' => 'trim|required|min_length[3]|max_length[20]',
+                'rules' => 'trim|required|min_length[6]|max_length[20]',
             ),
 
             array(
@@ -65,7 +65,7 @@ class Register extends CI_Controller
         } else {
             $memberdata = array(
                 'memberName' => $this->security->xss_clean($this->input->post('memberName')),
-                'memberPwd' => $this->security->xss_clean($this->input->post('memberPwd')),
+                'memberPwd' => md5($this->security->xss_clean($this->input->post('memberPwd'))),
                 'memberEmail' => $this->security->xss_clean($this->input->post('memberEmail')),
                 'memberTel' => $this->security->xss_clean($this->input->post('memberTel')),
             );

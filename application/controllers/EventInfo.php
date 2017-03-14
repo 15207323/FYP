@@ -192,19 +192,19 @@ class EventInfo extends CI_Controller
             array(
                 'field' => 'eventMinParti',
                 'label' => 'Min. Participant',
-                'rules' => 'trim|required|integer|greater_than[1]|max_length[2]',
+                'rules' => 'trim|required|numeric|greater_than[1]|less_than_equal_to[12]',
             ),
 
             array(
                 'field' => 'eventMaxParti',
                 'label' => 'Max. Participant',
-                'rules' => 'trim|required|integer|greater_than[1]|max_length[2]',
+                'rules' => 'trim|required|numeric|greater_than[1]|less_than_equal_to[12]',
             ),
 
             array(
                 'field' => 'eventEstFee',
                 'label' => 'Estimated Fee',
-                'rules' => 'trim|required|greater_than[0]|callback_decimal_check',
+                'rules' => 'trim|required|numeric|greater_than[0]|max_length[4]',
             ),
 
             array(
@@ -278,17 +278,6 @@ class EventInfo extends CI_Controller
             $this->load->view('template/footer');
         }
 
-
-    }
-
-    function decimal_check($input){
-
-            if(preg_match('/^\d+(\.\d{2})$/', $input)) {
-                return true;
-            }else{
-                $this->form_validation->set_message('decimal_check', 'The %s field is in wrong format. It should be in 2 d.p');
-                return false;
-            }
 
     }
 

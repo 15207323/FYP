@@ -35,7 +35,7 @@ class Welcome extends CI_Controller {
 	{
 
         $data['title'] = 'Dine Together!';
-        $this->load->view('template/navigation');
+//        $this->load->view('template/navigation');
         $this->load->view('template/header', $data);
 		$this->load->view('welcome_message');
         $this->load->view('template/footer');

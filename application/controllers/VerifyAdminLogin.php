@@ -61,8 +61,10 @@ class VerifyAdminLogin extends CI_Controller {
         //Field validation succeeded.  Validate against database
         $adminEmail = $this->security->xss_clean($this->input->post('adminEmail'));
 
+        $pwd = md5($adminPwd);
+
         //query the database
-        $result = $this->AdminLogin_model->login($adminEmail, $adminPwd);
+        $result = $this->AdminLogin_model->login($adminEmail, $pwd);
 
         if($result)
         {

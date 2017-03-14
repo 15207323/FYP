@@ -91,31 +91,31 @@ class MemberInfo extends CI_Controller
                 array(
                     'field' => 'memberPwd',
                     'label' => 'Password',
-                    'rules' => 'trim|min_length[3]|max_length[20]',
+                    'rules' => 'min_length[6]|max_length[20]',
                 ),
 
                 array(
                     'field' => 'memberPwdConf',
                     'label' => 'Password Confirmation',
-                    'rules' => 'trim|matches[memberPwd]',
+                    'rules' => 'matches[memberPwd]',
                 ),
 
                 array(
                     'field' => 'memberEmail',
                     'label' => 'E-mail',
-                    'rules' => 'trim|valid_email|unique[member.memberEmail]',
+                    'rules' => 'valid_email|unique[member.memberEmail]',
                 ),
 
                 array(
                     'field' => 'memberTel',
                     'label' => 'Mobile Phone No.',
-                    'rules' => 'trim|regex_match[/^[0-9]{8}$/]',
+                    'rules' => 'regex_match[/^[0-9]{8}$/]',
                 ),
 
                 array(
                     'field' => 'memberPoint',
                     'label' => 'Member Point',
-                    'rules' => 'trim',
+                    'rules' => 'trim|numeric',
                 ),
 
 
@@ -142,7 +142,7 @@ class MemberInfo extends CI_Controller
                     $inputdata = array();
 
                     if (($this->input->post('memberPwd') != NULL) && ($this->input->post('memberPwdConf') != NULL)) {
-                        $inputdata['memberPwd'] = $this->security->xss_clean($this->input->post('memberPwd'));
+                        $inputdata['memberPwd'] = md5($this->security->xss_clean($this->input->post('memberPwd')));
                     }
 
                     if ($this->input->post('memberEmail') != NULL) {
@@ -235,7 +235,7 @@ class MemberInfo extends CI_Controller
                 array(
                     'field' => 'memberName',
                     'label' => 'Username',
-                    'rules' => 'trim',
+                    'rules' => 'trim|exist[member.memberName]',
                 ),
             );
 

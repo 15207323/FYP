@@ -15,6 +15,8 @@
             </div>
         </row>
         <?php echo form_close(); ?>
+        <div class="clearfix"></div>
+
 
 
         <row>
@@ -24,7 +26,7 @@
                         <th>Event ID</th>
                         <th>Creator Username</th>
                         <th>Title</th>
-                        <th>Time Created</th>
+<!--                        <th>Time Created</th>-->
                         <th>Start Time</th>
                         <th>End Time</th>
                         <th>Min. Parti.</th>
@@ -37,7 +39,7 @@
                             <th><?php echo $event->eventID;?></th>
                             <td><?php echo $event->eventCreatorName;?></td>
                             <td><?php echo $event->eventTitle;?></td>
-                            <td><?php echo $event->eventCreateTime;?></td>
+<!--                            <td>--><?php //echo $event->eventCreateTime;?><!--</td>-->
                             <td><?php echo $event->eventStartTime;?></td>
                             <td><?php echo $event->eventEndTime;?></td>
                             <td><?php echo $event->eventMinParti;?></td>

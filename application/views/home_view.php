@@ -1,42 +1,86 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+<section id="home" class="home">
 
-<div class="container">
-    <h1>Home</h1>
-    <div class="row">
-        <div class="clearfix visible-sm-block"></div>
-        <div class="col-sm-12">
+    <div class="slogan">
 
-            <p class="lead">
-                Lets' start by creating an event now!
-            </p>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#ffcc00;text-decoration:none;" href="<?php echo site_url('DiningEventHome') ?>" role="button">Dining Event</a>
-                </div>
-
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#ff814c;text-decoration:none;" href="<?php echo site_url('RestaurantHome') ?>" role="button">Restaurant</a>
-                </div>
-
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#b3ea32;text-decoration:none;" href="<?php echo site_url('ComingSoon') ?>" role="button">Coupon</a>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#ff814c;text-decoration:none;" href="<?php echo site_url('ComingSoon') ?>" role="button">Personal Message</a>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#b3ea32;text-decoration:none;" href="<?php echo site_url('ComingSoon') ?>" role="button">Friends</a>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <a class="btn btn-primary btn-lg btn-block btn-link" style="margin-bottom:20px;padding-top:80px;height:200px;background-color:#ffcc00;text-decoration:none;" href="<?php echo site_url('DiningEventHome') ?>" role="button">Contact Us</a>
-                </div>
-
-            </div>
-        </div>
+        <h2><span class="text_color">Dine Together!</span> </h2>
+        <h4>Welcome back!</h4>
 
     </div>
 
-</div>
+    <div class="page-scroll">
+        <a href="#services" class="btn btn-circle">
+            <i class="fa fa-angle-double-down animated"></i>
+        </a>
+    </div>
+
+</section>
+
+<section id="services" class="home-section text-center bg-gray">
+    <div class="heading-about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="wow bounceInDown" data-wow-delay="0.4s">
+                        <div class="section-heading">
+                            <h2>Now you can...</h2>
+                            <i class="fa fa-2x fa-angle-down"></i>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-lg-offset-5">
+                <hr class="marginbot-50">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="wow fadeInLeft" data-wow-delay="0.2s">
+                    <div class="service-box">
+                        <div class="service-icon">
+                            <a href="<?php echo site_url('DiningEventHome') ?>"><img src="<?php echo base_url().'assets/'?>images/team/function1.jpg" alt="" /></a>
+                        </div>
+                        <div class="service-desc">
+                            <h5>Join Dining Event!</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="service-box">
+                        <div class="service-icon">
+                            <a href="<?php echo site_url('RestaurantHome') ?>"><img src="<?php echo base_url().'assets/'?>images/team/function2.jpg" alt="" /></a>
+                        </div>
+                        <div class="service-desc">
+                            <h5>Search Restaurant!</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="wow fadeInRight" data-wow-delay="0.2s">
+                    <div class="service-box">
+                        <div class="service-icon">
+                            <a href="<?php echo site_url('CouponHome') ?>"><img src="<?php echo base_url().'assets/'?>images/team/function3.jpg" alt=""  /></a>
+                        </div>
+                        <div class="service-desc">
+                            <h5>Find Coupons!</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div style="padding-bottom: 50px"></div>
+
+
+<div>

@@ -16,6 +16,8 @@
         </row>
         <?php echo form_close(); ?>
 
+        <div class="clearfix"></div>
+
 
         <row>
             <div class="table-responsive">
