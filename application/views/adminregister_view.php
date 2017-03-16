@@ -1,6 +1,9 @@
-
-<div class="container">
-    <h1>Admin Registration</h1>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Create Administrator</h1>
+        </div>
+    </div>
     <?php echo form_open("AdminRegister"); ?>
 
     <div class="form-group">
@@ -39,7 +42,6 @@
 
         <?php echo form_close(); ?>
 
-        <a type="button" class="btn btn-default" href="<?php echo site_url("AdminHome"); ?>" role="button">Back</a>
 
     </div>
 

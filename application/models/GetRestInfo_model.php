@@ -19,6 +19,14 @@ class GetRestInfo_model extends CI_Model
         return $query->result();
 
     }
+       public function adminget_restaurant() {
+
+            $this->db->select("restID,restName,restAddress,restTel,restEmail,restCategory,restAvgRate");
+            $this->db->from('restaurant');
+            $query = $this->db->get();
+            return $query->result();
+
+        }
 
     public function get_top_restaurant() {
 

@@ -32,6 +32,17 @@ class GetEventInfo_model extends CI_Model
 
     }
 
+    public function get_adminparticular_event($id) {
+
+        $this->db->select("eventID,eventCreatorName,eventTitle,eventAim,eventDesc,eventCreateTime,eventStartTime,eventEndTime,eventMinParti,eventMaxParti,eventEstFee,eventMemberPoint,eventRestaurantName,eventAddress");
+        $this->db->from('diningevent');
+        $this->db->where('eventID',$id);
+        $this->db->order_by('eventID','DESC');
+        $query = $this->db->get();
+        return $query->result();
+
+    }
+
     public function get_created_event($name) {
 
         $this->db->select("eventID,eventCreatorName,eventTitle,eventCreateTime,eventStartTime,eventEndTime,eventMinParti,eventMaxParti,eventRestaurantName");

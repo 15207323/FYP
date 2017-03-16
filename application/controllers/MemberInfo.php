@@ -27,13 +27,13 @@ class MemberInfo extends CI_Controller
 
             $data['title'] = 'View All Member';
 
-            $this->load->view('template/navigation_admin', $data);
-            $this->load->view('template/header', $data);
-
             $this->data['memberInfo']=$this->GetMemberInfo_model->get_member();
-            $this->load->view('showallmember_view',$this->data);
 
-            $this->load->view('template/footer');
+            $this->load->view('template/header_admin', $data);
+            $this->load->view('template/navigation_admin');
+            $this->load->view('template/sidebar_admin');
+            $this->load->view('showallmember_view',$this->data);
+            $this->load->view('template/footer_admin');
 
         }
 
@@ -54,15 +54,13 @@ class MemberInfo extends CI_Controller
             $data['adminName'] = $session_data['adminName'];
             $data['title'] = 'View User Information';
 
-            $this->load->view('template/navigation_admin', $data);
-            $this->load->view('template/header', $data);
-
             $this->data['memberInfo']=$this->GetMemberInfo_model->get_particular_member($name);
 
-
+            $this->load->view('template/header_admin', $data);
+            $this->load->view('template/navigation_admin');
+            $this->load->view('template/sidebar_admin');
             $this->load->view('showparticularmember_view',$this->data);
-
-            $this->load->view('template/footer');
+            $this->load->view('template/footer_admin');
 
 
 
@@ -131,10 +129,13 @@ class MemberInfo extends CI_Controller
                 $data['title'] = 'Edit User Information';
                 $data['attributes'] = $this->GetMemberInfo_model->get_particular_member($username);
 
+
+                $this->load->view('template/header_admin', $data);
                 $this->load->view('template/navigation_admin');
-                $this->load->view('template/header', $data);
+                $this->load->view('template/sidebar_admin');
                 $this->load->view('editmember_view', $data);
-                $this->load->view('template/footer');
+                $this->load->view('template/footer_admin');
+                
 
             } else {
                 if ($this->form_validation->run() == TRUE) {
@@ -165,20 +166,23 @@ class MemberInfo extends CI_Controller
                     $data['title'] = 'Edit User Information';
                     $data['attributes'] = $this->GetMemberInfo_model->get_particular_member($username);
 
+                    $this->load->view('template/header_admin', $data);
                     $this->load->view('template/navigation_admin');
-                    $this->load->view('template/header', $data);
+                    $this->load->view('template/sidebar_admin');
                     $this->load->view('sucessful_editmember', $data);
-                    $this->load->view('template/footer');
-
+                    $this->load->view('template/footer_admin');
+                    
                 } else {
 
                     $data['title'] = 'Edit User Information';
                     $data['attributes'] = $this->GetMemberInfo_model->get_particular_member($username);
 
+                    $this->load->view('template/header_admin', $data);
                     $this->load->view('template/navigation_admin');
-                    $this->load->view('template/header', $data);
+                    $this->load->view('template/sidebar_admin');
                     $this->load->view('editmember_view', $data);
-                    $this->load->view('template/footer');
+                    $this->load->view('template/footer_admin');
+
 
                 }
             }
@@ -204,17 +208,14 @@ class MemberInfo extends CI_Controller
             $data['adminName'] = $session_data['adminName'];
             $data['title'] = 'Delete User';
 
-
-            $this->load->view('template/navigation_admin', $data);
-            $this->load->view('template/header', $data);
-
             $this->load->model('DeleteMember_model');
             $this->DeleteMember_model->delete_member($name);
 
+            $this->load->view('template/header_admin', $data);
+            $this->load->view('template/navigation_admin');
+            $this->load->view('template/sidebar_admin');
             $this->load->view('sucessful_deletemember');
-
-            $this->load->view('template/footer');
-
+            $this->load->view('template/footer_admin');
 
         } else {
             //If no session, redirect to login page

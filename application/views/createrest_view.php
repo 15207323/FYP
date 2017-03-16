@@ -1,8 +1,9 @@
-
-<div class="container">
-    <h1>Create Dining Event</h1>
-
-
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Create Restaurant Record</h1>
+        </div>
+    </div>
 
     <?php echo form_open("RestInfo/create"); ?>
 
@@ -42,7 +43,7 @@
             <label for="restOpenHr" class="col-sm-4 control-label">Opening Hour</label>
             <div class="col-sm-8">
                 <?php echo form_error("restOpenHr", '<div class="error" style="color: #ff4500">', '</div>'); ?>
-                <textarea class="form-control" name="restOpenHr" rows="5" style="margin-bottom:10px;">
+                <textarea class="form-control" name="restOpenHr" rows="5" style="margin-bottom:10px;"></textarea>
             </div>
 
 
@@ -68,8 +69,9 @@
 
         <?php echo form_close(); ?>
 
-        <a type="button" class="btn btn-default" href="<?php echo site_url("DiningEventHome"); ?>" role="button">Back</a>
+        <a type="button" class="btn btn-default" href="<?php echo site_url("RestInfo"); ?>" role="button">Back</a>
 
-    </>
 
+
+</div>
 </div>

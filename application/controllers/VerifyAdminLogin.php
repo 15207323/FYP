@@ -44,9 +44,10 @@ class VerifyAdminLogin extends CI_Controller {
             //Field validation failed.  User redirected to login page
             $data['title'] = 'Administrator Login';
 
-            $this->load->view('template/header', $data);
+            $this->load->view('template/header_admin', $data);
+            $this->load->view('template/navigation_adminlogin', $data);
             $this->load->view('adminlogin_view', $data);
-            $this->load->view('template/footer');
+            $this->load->view('template/footer_admin');
         }
         else
         {

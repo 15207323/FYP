@@ -54,11 +54,13 @@ class AdminRegister extends CI_Controller
 
 
         if ($this->form_validation->run() == FALSE) {
-            $data['title'] = 'Admin Registration';
+            $data['title'] = 'Create Administrator';
+            $this->load->view('template/header_admin', $data);
             $this->load->view('template/navigation_admin');
-            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar_admin');
             $this->load->view('adminregister_view');
-            $this->load->view('template/footer');
+            $this->load->view('template/footer_admin');
+
         } else {
             $admindata = array(
                 'adminName' => $this->security->xss_clean($this->input->post('adminName')),
@@ -67,11 +69,12 @@ class AdminRegister extends CI_Controller
             );
             $this->AdminRegister_model->form_insert($admindata);
 
-            $data['title'] = 'Admin Registration';
+            $data['title'] = 'Create Administrator';
+            $this->load->view('template/header_admin', $data);
             $this->load->view('template/navigation_admin');
-            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar_admin');
             $this->load->view('sucessful_adminregister');
-            $this->load->view('template/footer');
+            $this->load->view('template/footer_admin');
         }
     }
 

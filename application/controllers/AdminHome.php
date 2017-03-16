@@ -22,10 +22,11 @@ class AdminHome extends CI_Controller {
             $session_data = $this->session->userdata('logged_in');
             $data['adminName'] = $session_data['adminName'];
             $data['title'] = 'Administrator Home';
+            $this->load->view('template/header_admin', $data);
             $this->load->view('template/navigation_admin', $data);
-            $this->load->view('template/header', $data);
+            $this->load->view('template/sidebar_admin', $data);
             $this->load->view('adminhome_view', $data);
-            $this->load->view('template/footer');
+            $this->load->view('template/footer_admin');
 
 
         }

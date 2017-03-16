@@ -32,14 +32,24 @@ class EventInfo extends CI_Controller
         if($this->session->userdata('logged_in')) {
 
             $data['title'] = 'View All Dining Event';
+            $data['eventInfo'] = $this->GetEventInfo_model->get_event();
 
-            $this->load->view('template/navigation_member', $data);
-            $this->load->view('template/header', $data);
+            if(array_key_exists("adminID",$this->session->userdata('logged_in'))) {
 
-            $this->data['eventInfo']=$this->GetEventInfo_model->get_event();
-            $this->load->view('showallevent_view',$this->data);
+                $this->load->view('template/header_admin', $data);
+                $this->load->view('template/navigation_admin');
+                $this->load->view('template/sidebar_admin');
+                $this->load->view('adminshowallevent_view',$data);
+                $this->load->view('template/footer_admin');
 
-            $this->load->view('template/footer');
+            }else if(array_key_exists("memberID",$this->session->userdata('logged_in'))){
+
+                $this->load->view('template/header', $data);
+                $this->load->view('template/navigation_member', $data);
+                $this->load->view('showallevent_view',$data);
+                $this->load->view('template/footer');
+
+            }
 
         }
 
@@ -57,14 +67,28 @@ class EventInfo extends CI_Controller
 
             $data['title'] = 'View Dining Event Information';
 
-            $this->load->view('template/navigation_member', $data);
-            $this->load->view('template/header', $data);
 
-            $this->data['eventInfo']=$this->GetEventInfo_model->get_particular_event($id);
+            if(array_key_exists("adminID",$this->session->userdata('logged_in'))) {
 
-            $this->load->view('showparticularevent_view',$this->data);
+                $this->data['eventInfo']=$this->GetEventInfo_model->get_adminparticular_event($id);
 
-            $this->load->view('template/footer');
+                $this->load->view('template/header_admin', $data);
+                $this->load->view('template/navigation_admin');
+                $this->load->view('template/sidebar_admin');
+                $this->load->view('adminshowparticularevent_view',$this->data);
+                $this->load->view('template/footer_admin');
+
+            }else if(array_key_exists("memberID",$this->session->userdata('logged_in'))){
+
+                $this->data['eventInfo']=$this->GetEventInfo_model->get_particular_event($id);
+
+                $this->load->view('template/navigation_member', $data);
+                $this->load->view('template/header', $data);
+                $this->load->view('showparticularevent_view',$this->data);
+                $this->load->view('template/footer');
+
+            }
+
 
         } else {
             //If no session, redirect to login page
@@ -228,8 +252,9 @@ class EventInfo extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
 
             $data['title'] = 'Create Dining Event';
-            $this->load->view('template/navigation_member');
+
             $this->load->view('template/header', $data);
+            $this->load->view('template/navigation_member');
             $this->load->view('createevent_view');
             $this->load->view('template/footer');
 
@@ -276,6 +301,127 @@ class EventInfo extends CI_Controller
             $this->load->view('template/header', $data);
             $this->load->view('sucessful_createevent');
             $this->load->view('template/footer');
+        }
+
+
+    }
+
+    public function admincreate() {
+
+        $config = array(
+
+            array(
+                'field' => 'eventTitle',
+                'label' => 'Title',
+                'rules' => 'trim|required|min_length[5]|max_length[50]',
+            ),
+
+            array(
+                'field' => 'eventAim',
+                'label' => 'Aim',
+                'rules' => 'trim|required|min_length[10]|max_length[255]',
+            ),
+
+            array(
+                'field' => 'eventDesc',
+                'label' => 'Description',
+                'rules' => 'trim|required|min_length[10]|max_length[255]',
+            ),
+
+            array(
+                'field' => 'eventStartTime',
+                'label' => 'Start Time',
+                'rules' => 'trim|required|callback_datetime_check',
+            ),
+
+            array(
+                'field' => 'eventEndTime',
+                'label' => 'End Time',
+                'rules' => 'trim|required|callback_datetime_check',
+            ),
+
+            array(
+                'field' => 'eventMinParti',
+                'label' => 'Min. Participant',
+                'rules' => 'trim|required|numeric|greater_than[1]|less_than_equal_to[12]',
+            ),
+
+            array(
+                'field' => 'eventMaxParti',
+                'label' => 'Max. Participant',
+                'rules' => 'trim|required|numeric|greater_than[1]|less_than_equal_to[12]',
+            ),
+
+            array(
+                'field' => 'eventEstFee',
+                'label' => 'Estimated Fee',
+                'rules' => 'trim|required|numeric|greater_than[0]|max_length[4]',
+            ),
+
+            array(
+                'field' => 'eventMemberPoint',
+                'label' => 'Member Point',
+                'rules' => 'trim|required|numeric|greater_than[0]|max_length[4]',
+            ),
+
+            array(
+                'field' => 'eventRestaurantName',
+                'label' => 'Restaurant Name',
+                'rules' => 'trim|required|min_length[3]|max_length[50]',
+            ),
+
+            array(
+                'field' => 'eventAddress',
+                'label' => 'Restaurant Address',
+                'rules' => 'trim|required|min_length[10]|max_length[255]',
+            ),
+        );
+
+
+        $this->form_validation->set_rules($config);
+
+
+
+        if ($this->form_validation->run() == FALSE) {
+
+            $data['title'] = 'Create Dining Event';
+
+            $this->load->view('template/header_admin', $data);
+            $this->load->view('template/navigation_admin');
+            $this->load->view('template/sidebar_admin');
+            $this->load->view('admincreateevent_view');
+            $this->load->view('template/footer_admin');
+
+        } else {
+
+
+            $eventdata = array(
+                'eventCreatorName' =>  "admin",
+                'eventTitle' => $this->security->xss_clean($this->input->post('eventTitle')),
+                'eventAim' => $this->security->xss_clean($this->input->post('eventAim')),
+                'eventDesc' => $this->security->xss_clean($this->input->post('eventDesc')),
+                'eventStartTime' => $this->security->xss_clean($this->input->post('eventStartTime')),
+                'eventEndTime' => $this->security->xss_clean($this->input->post('eventEndTime')),
+                'eventMinParti' => $this->security->xss_clean($this->input->post('eventMinParti')),
+                'eventMaxParti' => $this->security->xss_clean($this->input->post('eventMaxParti')),
+                'eventEstFee' => $this->security->xss_clean($this->input->post('eventEstFee')),
+                'eventMemberPoint' => $this->security->xss_clean($this->input->post('eventMemberPoint')),
+                'eventRestaurantName' => $this->security->xss_clean($this->input->post('eventRestaurantName')),
+                'eventAddress' => $this->security->xss_clean($this->input->post('eventAddress')),
+            );
+
+            $eid = $this->CreateEvent_model->form_insert($eventdata);
+
+            $this->JoinEvent_model->join_event($eid,"0");
+
+            $data['title'] = 'Create Dining Event';
+
+            $this->load->view('template/header_admin', $data);
+            $this->load->view('template/navigation_admin');
+            $this->load->view('template/sidebar_admin');
+            $this->load->view('sucessful_admincreateevent');
+            $this->load->view('template/footer_admin');
+
         }
 
 
@@ -346,6 +492,8 @@ class EventInfo extends CI_Controller
 
     }
 
+
+
     public function search() {
 
         if($this->session->userdata('logged_in')){
@@ -366,36 +514,77 @@ class EventInfo extends CI_Controller
 
             if($this->form_validation->run() == FALSE)
             {
-                $session_data = $this->session->userdata('logged_in');
-                $data['memberName'] = $session_data['memberName'];
 
-                $data['title'] = 'View All Dining Event';
+                if($this->session->userdata('logged_in')) {
 
-                $this->load->view('template/navigation_member', $data);
-                $this->load->view('template/header', $data);
+                    $data['title'] = 'View All Dining Event';
+                    $data['eventInfo'] = $this->GetEventInfo_model->get_event();
 
-                $this->data['eventInfo']=$this->GetEventInfo_model->get_event();
-                $this->load->view('showallevent_view',$this->data);
+                    if(array_key_exists("adminID",$this->session->userdata('logged_in'))) {
 
-                $this->load->view('template/footer');
+                        $this->load->view('template/header_admin', $data);
+                        $this->load->view('template/navigation_admin');
+                        $this->load->view('template/sidebar_admin');
+                        $this->load->view('adminshowallevent_view',$this->data);
+                        $this->load->view('template/footer_admin');
+
+                    }else if(array_key_exists("memberID",$this->session->userdata('logged_in'))){
+
+                        $this->load->view('template/navigation_member', $data);
+                        $this->load->view('template/header', $data);
+                        $this->load->view('showallevent_view',$this->data);
+                        $this->load->view('template/footer');
+
+                    }
+
+                }
+
+                else
+                {
+                    //If no session, redirect to login page
+                    redirect('Welcome', 'refresh');
+                }
+
             }
             else
             {
-                $session_data = $this->session->userdata('logged_in');
 
-                $this->security->xss_clean($this->input->post('eventID'));
-                $this->data['eventInfo']=$this->GetEventInfo_model->get_particular_event($eventID);
+                if($this->session->userdata('logged_in')) {
+
+                    $this->security->xss_clean($this->input->post('eventID'));
+
+                    $data['title'] = 'View Dining Event Information';
+
+                    if(array_key_exists("adminID",$this->session->userdata('logged_in'))) {
+
+                        $this->data['eventInfo']=$this->GetEventInfo_model->get_adminparticular_event($eventID);
+
+                        $this->load->view('template/header_admin', $data);
+                        $this->load->view('template/navigation_admin');
+                        $this->load->view('template/sidebar_admin');
+                        $this->load->view('adminshowparticularevent_view',$this->data);
+                        $this->load->view('template/footer_admin');
+
+                    }else if(array_key_exists("memberID",$this->session->userdata('logged_in'))){
+
+                        $this->data['eventInfo']=$this->GetEventInfo_model->get_particular_event($eventID);
+
+                        $this->load->view('template/navigation_member', $data);
+                        $this->load->view('template/header', $data);
+                        $this->load->view('showparticularevent_view',$this->data);
+                        $this->load->view('template/footer');
+
+                    }
+
+                }
+
+                else
+                {
+                    //If no session, redirect to login page
+                    redirect('Welcome', 'refresh');
+                }
 
 
-                $data['memberName'] = $session_data['memberName'];
-                $data['title'] = 'View Dining Event Information';
-
-                $this->load->view('template/navigation_member', $data);
-                $this->load->view('template/header', $data);
-
-                $this->load->view('showparticularevent_view',$this->data);
-
-                $this->load->view('template/footer');
             }
 
         } else {
@@ -576,7 +765,212 @@ class EventInfo extends CI_Controller
 
     }
 
+    public function edit($id)
+    {
 
+
+        if ($this->session->userdata('logged_in')) {
+
+            if (array_key_exists("adminID", $this->session->userdata('logged_in'))) {
+
+
+                $data['event'] = $this->GetEventInfo_model->get_adminparticular_event($id);
+
+                $this->load->library('form_validation');
+
+                $config = array(
+
+                    array(
+                        'field' => 'eventTitle',
+                        'label' => 'Title',
+                        'rules' => 'trim|required|min_length[5]|max_length[50]',
+                    ),
+
+                    array(
+                        'field' => 'eventAim',
+                        'label' => 'Aim',
+                        'rules' => 'trim|required|min_length[10]|max_length[255]',
+                    ),
+
+                    array(
+                        'field' => 'eventDesc',
+                        'label' => 'Description',
+                        'rules' => 'trim|required|min_length[10]|max_length[255]',
+                    ),
+
+                    array(
+                        'field' => 'eventStartTime',
+                        'label' => 'Start Time',
+                        'rules' => 'trim|required|callback_datetime_check',
+                    ),
+
+                    array(
+                        'field' => 'eventEndTime',
+                        'label' => 'End Time',
+                        'rules' => 'trim|required|callback_datetime_check',
+                    ),
+
+                    array(
+                        'field' => 'eventMinParti',
+                        'label' => 'Min. Participant',
+                        'rules' => 'trim|required|numeric|greater_than[1]|less_than_equal_to[12]',
+                    ),
+
+                    array(
+                        'field' => 'eventMaxParti',
+                        'label' => 'Max. Participant',
+                        'rules' => 'trim|required|numeric|greater_than[1]|less_than_equal_to[12]',
+                    ),
+
+                    array(
+                        'field' => 'eventEstFee',
+                        'label' => 'Estimated Fee',
+                        'rules' => 'trim|required|numeric|greater_than[0]|max_length[4]',
+                    ),
+
+                    array(
+                        'field' => 'eventMemberPoint',
+                        'label' => 'Member Point',
+                        'rules' => 'trim|required|numeric|greater_than[0]|max_length[4]',
+                    ),
+
+                    array(
+                        'field' => 'eventRestaurantName',
+                        'label' => 'Restaurant Name',
+                        'rules' => 'trim|required|min_length[3]|max_length[50]',
+                    ),
+
+                    array(
+                        'field' => 'eventAddress',
+                        'label' => 'Restaurant Address',
+                        'rules' => 'trim|required|min_length[10]|max_length[255]',
+                    ),
+                );
+
+
+                $this->form_validation->set_rules($config);
+
+
+                if (!$this->input->post('post')) {
+
+
+                    $data['title'] = 'Edit Dining Event Information';
+                    $data['attributes'] = $this->GetEventInfo_model->get_adminparticular_event($id);
+
+
+                    $this->load->view('template/header_admin', $data);
+                    $this->load->view('template/navigation_admin');
+                    $this->load->view('template/sidebar_admin');
+                    $this->load->view('editevent_view', $data);
+                    $this->load->view('template/footer_admin');
+
+
+                } else {
+                    if ($this->form_validation->run() == TRUE) {
+
+                        $inputdata = array();
+
+                        if ($this->input->post('eventTitle') != NULL) {
+                            $inputdata['eventTitle'] = $this->security->xss_clean($this->input->post('eventTitle'));
+
+                        }
+
+                        if ($this->input->post('eventAim') != NULL) {
+                            $inputdata['eventAim'] = $this->security->xss_clean($this->input->post('eventAim'));
+
+                        }
+
+                        if ($this->input->post('eventDesc') != NULL) {
+                            $inputdata['eventDesc'] = $this->security->xss_clean($this->input->post('eventDesc'));
+                        }
+
+                        if ($this->input->post('eventStartTime') != NULL) {
+                            $inputdata['eventStartTime'] = $this->security->xss_clean($this->input->post('eventStartTime'));
+
+                        }
+
+                        if ($this->input->post('eventEndTime') != NULL) {
+                            $inputdata['eventEndTime'] = $this->security->xss_clean($this->input->post('eventEndTime'));
+
+                        }
+
+                        if ($this->input->post('eventMinParti') != NULL) {
+                            $inputdata['eventMinParti'] = $this->security->xss_clean($this->input->post('eventMinParti'));
+                        }
+
+                        if ($this->input->post('eventMaxParti') != NULL) {
+                            $inputdata['eventMaxParti'] = $this->security->xss_clean($this->input->post('eventMaxParti'));
+
+                        }
+
+                        if ($this->input->post('eventEstFee') != NULL) {
+                            $inputdata['eventEstFee'] = $this->security->xss_clean($this->input->post('eventEstFee'));
+
+                        }
+
+                        if ($this->input->post('eventMemberPoint') != NULL) {
+                            $inputdata['eventMemberPoint'] = $this->security->xss_clean($this->input->post('eventMemberPoint'));
+                        }
+
+                        if ($this->input->post('eventRestaurantName') != NULL) {
+                            $inputdata['eventRestaurantName'] = $this->security->xss_clean($this->input->post('eventRestaurantName'));
+
+                        }
+
+                        if ($this->input->post('eventAddress') != NULL) {
+                            $inputdata['eventAddress'] = $this->security->xss_clean($this->input->post('eventAddress'));
+
+                        }
+
+
+                        $this->load->model('EditMember_model');
+                        $this->EditEvent_model->update_eventinfo($inputdata, $id);
+
+                        $data['title'] = 'Edit Dining Event Information';
+                        $data['attributes'] = $this->GetEventInfo_model->get_adminparticular_event($id);
+
+                        $this->load->view('template/header_admin', $data);
+                        $this->load->view('template/navigation_admin');
+                        $this->load->view('template/sidebar_admin');
+                        $this->load->view('sucessful_editevent', $data);
+                        $this->load->view('template/footer_admin');
+
+                    } else {
+
+                        $data['title'] = 'Edit Dining Event Information';
+                        $data['attributes'] = $this->GetEventInfo_model->get_adminparticular_event($id);
+
+                        $this->load->view('template/header_admin', $data);
+                        $this->load->view('template/navigation_admin');
+                        $this->load->view('template/sidebar_admin');
+                        $this->load->view('editevent_view', $data);
+                        $this->load->view('template/footer_admin');
+
+
+                    }
+                }
+
+
+            } else if (array_key_exists("memberID", $this->session->userdata('logged_in'))) {
+
+                $session_data = $this->session->userdata('logged_in');
+                $data['memberName'] = $session_data['memberName'];
+                $data['title'] = 'Home';
+                $this->load->view('template/navigation_memberhome', $data);
+                $this->load->view('template/header', $data);
+                $this->load->view('diningeventhome_view', $data);
+                $this->load->view('template/footer');
+
+            }
+
+
+        } else {
+            //If no session, redirect to login page
+            redirect('Login', 'refresh');
+        }
+
+
+    }
 
 
 }

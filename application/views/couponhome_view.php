@@ -6,23 +6,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="slogan">
         <h2><span class="text_color">Coupon</span></h2>
         <h4>Use your member point!</h4>
+        <a href="<?php echo site_url("CouponInfo/owned")?>"><h4>or Click Here to View Owned Coupon</h4></a>
     </div>
     <div class="page-scroll">
-        <a href="#coupon" class="btn btn-circle">
+        <a href="#all" class="btn btn-circle">
             <i class="fa fa-angle-double-down animated"></i>
         </a>
     </div>
 
 </section>
 
-<section id="coupon" class="home-section text-center bg-white">
+<section id="all" class="home-section text-center bg-white">
     <div class="heading-about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
                     <div class="wow bounceInDown" data-wow-delay="0.4s">
                         <div class="section-heading">
-                            <h2>Coupons</h2>
+                            <h2>All Coupons</h2>
                             <i class="fa fa-2x fa-angle-down"></i>
 
                         </div>

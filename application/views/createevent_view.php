@@ -56,7 +56,7 @@
             <input type="number" class="form-control" name="eventMinParti" step="1" value="<?php echo set_value('eventMinParti'); ?>" style="margin-bottom:12px;">
         </div>
 
-        <label for="eventEstFee" class="col-sm-4 control-label">Max. Participants (include you)</label>
+        <label for="eventMaxParti" class="col-sm-4 control-label">Max. Participants (include you)</label>
         <div class="col-sm-8">
             <?php echo form_error("eventMaxParti", '<div class="error" style="color: #ff4500">', '</div>'); ?>
             <input type="number" class="form-control" name="eventMaxParti" step="1" value="<?php echo set_value('eventMaxParti'); ?>" style="margin-bottom:12px;">

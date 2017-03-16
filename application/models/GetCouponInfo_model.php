@@ -9,7 +9,6 @@
 class GetCouponInfo_model extends CI_Model
 {
 
-//    member
 
     public function get_coupon() {
 
@@ -29,6 +28,42 @@ class GetCouponInfo_model extends CI_Model
         $this->db->where('couponID',$id);
         $query = $this->db->get();
         return $query->result();
+
+    }
+
+    public function get_couponpoint($id) {
+
+        $this->db->select("couponMemberPointNeed");
+        $this->db->from('coupon');
+        $this->db->where('couponID',$id);
+
+        return $this->db->get()->row()->couponMemberPointNeed;
+
+
+    }
+
+    public function get_couponowned($id) {
+
+        $this->db->select("couponID,couponMaxOwner");
+        $this->db->from('coupon');
+        $this->db->where('couponID',$id);
+
+        return $this->db->get()->row()->couponMaxOwner;
+
+
+    }
+
+    public function get_ownedcoupon($id){
+
+        $this->db->select('ownedcoupon.*,coupon.couponID,coupon.couponTitle,coupon.couponDesc,coupon.couponExpireDay');
+        $this->db->from('coupon,ownedcoupon');
+        $this->db->where('ownedcoupon.memberID',$id);
+        $this->db->where('ownedcoupon.couponID = coupon.couponID');
+
+        $query = $this->db->get();
+
+        return $query->result();
+
 
     }
 

@@ -1,9 +1,10 @@
 
 <div class="container">
+    <div class="col-sm-12">
     <h1>Administrator Login</h1>
     <?php echo form_open("verifyadminlogin"); ?>
 
-    <div class="form-group">
+    <div class="form-group" style="margin-top: 5%">
 
         <label for="adminEmail" class="col-sm-4 control-label">E-mail</label>
         <div class="col-sm-8">
@@ -27,6 +28,7 @@
         <?php echo form_close(); ?>
 
 
+    </div>
     </div>
 
 </div>

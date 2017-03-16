@@ -64,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <div class="service-box">
                             <div class="service-icon grow">
                                 <div class="grow">
-                                <a href="<?php echo site_url("EventInfo/view/$restaurant->restID"); ?>"><img src="<?php echo base_url().'assets/'?>images/restaurant/<?php echo $restaurant->restID ?>.jpg" alt="" /></a>
+                                <a href="<?php echo site_url("RestInfo/view/$restaurant->restID"); ?>"><img src="<?php echo base_url().'assets/'?>images/restaurant/<?php echo $restaurant->restID ?>.jpg" alt="" /></a>
                             </div>
                             </div>
                             <div class="service-desc">
